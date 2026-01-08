@@ -13,9 +13,7 @@ export default <Partial<Config>>{
   ],
   theme: {
     extend: {
-      fontFamily: {
-        nunito: ['"Nunito Sans"', "system-ui", "sans-serif"],
-      },
+      spacing: {},
       colors: {
         primary: {
           100: "#EDF2FB",
@@ -36,6 +34,10 @@ export default <Partial<Config>>{
           700: "#24263D",
         },
       },
+      fontFamily: {
+        nunito: ['"Nunito Sans"', "system-ui", "sans-serif"],
+      },
+      borderRadius: {},
     },
   },
 };
