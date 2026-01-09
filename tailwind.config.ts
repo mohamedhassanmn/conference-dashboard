@@ -37,7 +37,9 @@ export default <Partial<Config>>{
       fontFamily: {
         nunito: ['"Nunito Sans"', "system-ui", "sans-serif"],
       },
-      borderRadius: {},
+      borderRadius: {
+         14: '0.875rem', // 14px
+      },
     },
   },
 };
