@@ -13,7 +13,9 @@ export default <Partial<Config>>{
   ],
   theme: {
     extend: {
-      spacing: {},
+      spacing: {
+        "160": "40rem", // 640px
+      },
       colors: {
         primary: {
           100: "#EDF2FB",
@@ -38,7 +40,19 @@ export default <Partial<Config>>{
         nunito: ['"Nunito Sans"', "system-ui", "sans-serif"],
       },
       borderRadius: {
-         14: '0.875rem', // 14px
+        14: "0.875rem", // 14px
+      },
+      fontSize: {
+        "2xs": ["0.625rem", { lineHeight: "0.875rem" }], // 10px / 14px
+      },
+      width: {
+        "4.5": "1.125rem", // 18px
+        "125": "31.25rem", // 500px
+        "160": "40rem", // 640px
+      },
+      height: {
+        "4.5": "1.125rem", // 18px
+        "125": "31.25rem", // 500px
       },
     },
   },

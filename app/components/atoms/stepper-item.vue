@@ -22,7 +22,7 @@ const emit = defineEmits(['step-click'])
 </script>
 
 <template>
-    <div class="flex space-x-4 items-center cursor-pointer" @click="emit('step-click')">
+    <div class="flex space-x-4 items-center cursor-pointer font-semibold p-4" @click="emit('step-click')">
         <div class="w-8 h-8 rounded-full flex items-center justify-center text-primary-100"
             :class="activeState ? 'bg-neutral-400' : 'bg-neutral-200'">
             {{ stepCount }}
