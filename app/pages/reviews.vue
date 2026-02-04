@@ -1,5 +1,12 @@
+<script setup lang="ts">
+import ReviewCard from '~/components/molecules/review-card.vue';
+</script>
+
 <template>
-    <div>
-        Welcome to the Reviews Page
+    <div class="p-4 flex flex-wrap">
+        <ReviewCard />
+        <ReviewCard />
+        <ReviewCard />
+        <ReviewCard />
     </div>  
 </template>
