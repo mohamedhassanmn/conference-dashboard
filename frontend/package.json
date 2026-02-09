@@ -1,12 +1,13 @@
 {
   "name": "icpp2026-dashboard",
+  "author": "Mohamed Hassan <hassanaesthete008@gmail.com>",
   "type": "module",
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --port 4000",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
+    "preview": "nuxt preview --port 4000",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {

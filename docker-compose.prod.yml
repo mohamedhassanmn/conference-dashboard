@@ -1,0 +1,16 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: production
+
+  backend:
+    expose:
+      - "4500"
+    environment:
+      NODE_ENV: production
+    command: npm run start
