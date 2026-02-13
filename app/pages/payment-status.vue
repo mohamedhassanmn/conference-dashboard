@@ -32,27 +32,52 @@ const MAX_PAGES = 2
 const currentPage = ref(1)
 
 /* ------------------ COMPUTED ------------------ */
-const filteredPayments = computed(() => {
-  if (viewMode.value === 'last5') {
-    return payments.value.slice(0, 5)
-  }
-  return payments.value
-})
+const isDropdownOpen = ref(false)
 
 const totalPages = computed(() => {
   if (viewMode.value === 'last5') return 1
+
   return Math.min(
     Math.ceil(filteredPayments.value.length / PAGE_SIZE),
     MAX_PAGES
   )
 })
 
+const viewOptions = [
+  { label: 'Last 5 Transactions', value: 'last5' },
+  { label: 'All Transactions', value: 'all' }
+]
+
+const selectedOption = computed(() =>
+  viewOptions.find(o => o.value === viewMode.value)
+)
+
+const selectView = (value: 'last5' | 'all') => {
+  viewMode.value = value
+  currentPage.value = 1
+  isDropdownOpen.value = false
+}
+
+const sortedPayments = computed(() =>
+  [...payments.value].reverse()
+)
+
+const filteredPayments = computed(() => {
+  if (viewMode.value === 'last5') {
+    return sortedPayments.value.slice(0, 5)
+  }
+  return sortedPayments.value
+})
+
 const paginatedPayments = computed(() => {
-  if (viewMode.value === 'last5') return filteredPayments.value
+  if (viewMode.value === 'last5') {
+    return filteredPayments.value
+  }
 
   const start = (currentPage.value - 1) * PAGE_SIZE
   return filteredPayments.value.slice(start, start + PAGE_SIZE)
 })
+
 
 /* ------------------ ACTIONS ------------------ */
 const nextPage = () => {
@@ -84,16 +109,37 @@ const changeView = (mode: ViewMode) => {
     <!-- HEADER -->
     <div class="flex items-center justify-between mb-4">
       <!-- Dropdown -->
+      <!-- CUSTOM DROPDOWN -->
       <div class="relative">
-        <select
-          class="px-4 py-2 bg-gray-100 rounded-full text-sm cursor-pointer"
-          v-model="viewMode"
-          @change="changeView(viewMode)"
+        <!-- Trigger -->
+        <button
+          @click="isDropdownOpen = !isDropdownOpen"
+          class="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full text-sm font-medium text-gray-700"
         >
-          <option value="last5">Last 5 Transactions</option>
-          <option value="all">All Transactions</option>
-        </select>
+          {{ selectedOption?.label }}
+          <span class="text-gray-500">▾</span>
+        </button>
+
+        <!-- Dropdown menu -->
+        <div
+          v-if="isDropdownOpen"
+          class="absolute w-40 bg-white rounded-lg shadow-lg border z-10"
+        >
+          <button
+            v-for="option in viewOptions"
+            :key="option.value"
+            @click="selectView(option.value as any)"
+            class="w-full text-left px-4 py-2 text-sm hover:bg-indigo-50"
+            :class="{
+              'bg-indigo-600 text-white hover:bg-indigo-600':
+                viewMode === option.value
+            }"
+          >
+            {{ option.label }}
+          </button>
+        </div>
       </div>
+
 
       <!-- Pagination -->
       <div class="flex items-center gap-2">
