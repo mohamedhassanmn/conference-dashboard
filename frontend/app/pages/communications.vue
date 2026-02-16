@@ -77,7 +77,7 @@ const sendMail = () => {
 <template>
   <button
     @click="isComposeOpen = true"
-    class="fixed top-6 right-6 bg-indigo-600 text-white px-4 py-2 rounded-lg shadow hover:bg-indigo-700"
+    class="fixed top-16 right-80 bg-indigo-600 text-white px-4 py-2 rounded-lg shadow hover:bg-indigo-700"
   >
     ✉ Compose
   </button>
