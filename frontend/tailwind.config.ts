@@ -35,6 +35,9 @@ export default <Partial<Config>>{
           600: "#343757",
           700: "#24263D",
         },
+        "golden-yellow": "#EBEB7C",
+        "dusky-red": "#FF8789",
+        "grass-green": "#C7F9A0",
       },
       fontFamily: {
         nunito: ['"Nunito Sans"', "system-ui", "sans-serif"],
@@ -47,11 +50,20 @@ export default <Partial<Config>>{
       },
       width: {
         "4.5": "1.125rem", // 18px
+        "57": "14.25rem", // 228px
+        "79": "19.75rem", // 316px
         "125": "31.25rem", // 500px
         "160": "40rem", // 640px
       },
       height: {
         "4.5": "1.125rem", // 18px
+        "34": "8.5rem", // 136px
+        "37.5": "9.375rem", // 150px
+        "39.25": "9.8125rem", // 157px
+        "46": "11.5rem", // 184px
+        "125": "31.25rem", // 500px
+      },
+      maxHeight: {
         "125": "31.25rem", // 500px
       },
     },
