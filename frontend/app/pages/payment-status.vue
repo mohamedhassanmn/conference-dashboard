@@ -12,16 +12,8 @@ type Payment = {
 }
 
 /* ------------------ DATA ------------------ */
-const payments = ref<Payment[]>([
-  { title: 'Registration fees - Early', status: 'unpaid', date: 'Nov 11, 2025', amount: '€ 600' },
-  { title: 'Accommodation on All Meal Plan', status: 'paid', date: 'Nov 11, 2025', amount: '€ 600', link: 'Receipt' },
-  { title: 'Workshop Access', status: 'paid', date: 'Nov 12, 2025', amount: '€ 300' },
-  { title: 'Networking Dinner', status: 'unpaid', date: 'Nov 13, 2025', amount: '€ 150' },
-  { title: 'VIP Lounge', status: 'paid', date: 'Nov 14, 2025', amount: '€ 450' },
-  { title: 'After Party', status: 'paid', date: 'Nov 15, 2025', amount: '€ 200' },
-  { title: 'Merch Pack', status: 'unpaid', date: 'Nov 16, 2025', amount: '€ 90' },
-  { title: 'Extra Session', status: 'paid', date: 'Nov 17, 2025', amount: '€ 120' }
-])
+const payments = ref<Payment[]>([]);
+
 /* ------------------ VIEW MODE ------------------ */
 type ViewMode = 'last5' | 'all'
 const viewMode = ref<ViewMode>('last5')
@@ -100,8 +92,8 @@ const changeView = (mode: ViewMode) => {
     class="flex flex-col items-center justify-center h-[80vh]"
   >
     <img :src="emptyIcon" class="w-64 mb-4" />
-    <p class="text-indigo-800 font-semibold text-4xl">Transaction log</p>
-    <p class="text-indigo-800 font-semibold text-3xl">is empty!</p>
+    <p class="text-[#5F6599] font-semibold text-4xl">Transaction log</p>
+    <p class="text-[#5F6599] font-semibold text-3xl">is empty!</p>
   </div>
 
   <!-- LIST STATE -->
