@@ -43,7 +43,7 @@ const getAbstractText = (text: string) => {
 
 <template>
     <div class="w-full h-full flex flex-col items-center">
-        <div class="w-full mt-10 pr-8 h-160 overflow-y-auto scrollbar-thin">
+        <div class="w-full pr-8 flex-1 overflow-y-auto scrollbar-thin">
             <h2 class="text-xl font-semibold">Submission detail:</h2>
             <div class="border border-neutral-200 rounded-xl px-4 py-3 mt-1">
                 <div v-for="submissionData in submissionDetails" :key="submissionData.label"

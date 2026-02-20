@@ -16,22 +16,26 @@ const steps = [
 </script>
 
 <template>
-    <Stepper :steps="steps" :activeStep="activeStep" @change-step="activeStep = $event" />
-    <div class="min-w-160 w-1/3 mx-auto">
-        <template v-if="activeStep == 1">
-            <AuthorInfoForm />
-        </template>
-        <template v-else-if="activeStep == 2">
-            <TitleAndAbstractForm />
-        </template>
-        <template v-else-if="activeStep == 3">
-            <KeywordsForm />
-        </template>
-        <template v-else-if="activeStep == 4">
-            <FilesUploadForm />
-        </template>
-        <template v-else-if="activeStep == 5">
-            <SummaryForm />
-        </template>
+    <div class="w-full h-full flex flex-col justify-center items-center">
+        <Stepper :steps="steps" :activeStep="activeStep" @change-step="activeStep = $event" />
+        <div class="min-w-160 w-1/3 flex-1 min-h-0 mx-auto mt-10">
+            <div class="h-full flex flex-col justify-center items-center">
+                <template v-if="activeStep == 1">
+                    <AuthorInfoForm />
+                </template>
+                <template v-else-if="activeStep == 2">
+                    <TitleAndAbstractForm />
+                </template>
+                <template v-else-if="activeStep == 3">
+                    <KeywordsForm />
+                </template>
+                <template v-else-if="activeStep == 4">
+                    <FilesUploadForm />
+                </template>
+                <template v-else-if="activeStep == 5">
+                    <SummaryForm />
+                </template>
+            </div>
+        </div>
     </div>
 </template>
