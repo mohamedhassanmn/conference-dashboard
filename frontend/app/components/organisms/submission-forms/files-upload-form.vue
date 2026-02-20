@@ -3,7 +3,7 @@ import FileUpload from '~/components/atoms/file-upload.vue';
 </script>
 
 <template>
-    <div class="w-full mt-10">
+    <div class="w-full pr-8 h-fit overflow-y-auto scrollbar-thin">
         <h2 class="text-xl font-semibold">Files</h2>
         <div class="flex flex-col justify-center items-center w-full mt-5">
             <FileUpload label="" customClass="mt-4" />

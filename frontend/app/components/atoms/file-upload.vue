@@ -31,7 +31,7 @@ const onFileChange = (event: Event) => {
 
 <template>
     <div :class="`w-full ${customClass}`">
-        <label  class="block font-medium text-neutral-500">{{ label }}</label>
+        <label class="block font-medium text-neutral-500">{{ label }}</label>
         <div class="mt-1">
             <input ref="fileInput" type="file" class="hidden" @change="onFileChange" accept=".pdf,.doc,.docx" />
 
@@ -45,7 +45,8 @@ const onFileChange = (event: Event) => {
                 </div>
             </button>
 
-            <div v-if="fileName" class="w-full rounded-2xl border border-neutral-200 p-5 mt-1 flex justify-between items-center"> 
+            <div v-if="fileName"
+                class="w-full rounded-2xl border border-neutral-200 p-5 mt-1 flex justify-between items-center">
                 <div class="flex flex-start items-center">
                     <img :src="IcFilePdf" alt="File PDF" class="inline-block mr-2 cursor-pointer w-9 h-fit" />
                     <div>

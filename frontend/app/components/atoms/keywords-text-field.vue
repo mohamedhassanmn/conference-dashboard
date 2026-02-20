@@ -44,7 +44,8 @@ const removeKeyword = (word: string) => {
                 <span v-for="word in keywordList" :key="word"
                     class="flex items-center gap-1 bg-primary-400 text-neutral-700 py-1.5 px-2 rounded-3xl h-8">
                     <span>{{ word }}</span>
-                    <button type="button" class="w-4.5 h-4.5 flex justify-center items-center" @click="removeKeyword(word)">
+                    <button type="button" class="w-4.5 h-4.5 flex justify-center items-center"
+                        @click="removeKeyword(word)">
                         <img :src="IcClose" alt="Close icon" class="inline-block cursor-pointer w-full h-full" />
                     </button>
                 </span>

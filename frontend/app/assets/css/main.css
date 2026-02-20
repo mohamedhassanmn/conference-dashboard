@@ -5,19 +5,15 @@
 @layer utilities {
   .scrollbar-thin::-webkit-scrollbar {
     width: 8px;
+    height: 8px;
   }
 
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    background-color: #4C5078;
+    background-color: #4c5078;
     border-radius: 8px;
   }
 
   .scrollbar-thin::-webkit-scrollbar-track {
-    background-color: #EDF2FB;
-  }
-
-  .scrollbar-thin {
-    scrollbar-width: thin;
-    scrollbar-color: #4C5078 #EDF2FB;
+    background-color: #edf2fb;
   }
 }
