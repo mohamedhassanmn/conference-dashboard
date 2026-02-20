@@ -35,9 +35,9 @@ definePageMeta({
         <div class="h-[29.06%] flex justify-between space-x-3">
             <div class="w-[66.26%] bg-white rounded-3xl relative overflow-hidden px-16 py-9">
                 <NuxtImg src="/images/css-wave-pattern.png" alt="CSS PATTERN"
-                    class="w-full h-full absolute top-0 left-0" />
+                    class="w-full h-full absolute top-0 left-0 z-0" />
                 <NuxtImg src="/images/img-reg-opensoon-status.png" alt="reg status pic"
-                    class="w-full h-full object-contain" />
+                    class="relative w-full h-full object-contain z-10" />
             </div>
             <EventScheduleInfoCard customClass="flex-1" title="Info board" headerClass="mb-3"
                 imgSrc="/images/img-notification.png" imgClass="h-46" />
