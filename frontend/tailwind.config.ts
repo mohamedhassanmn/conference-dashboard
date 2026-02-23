@@ -52,6 +52,9 @@ export default <Partial<Config>>{
         "4.5": "1.125rem", // 18px
         "57": "14.25rem", // 228px
         "79": "19.75rem", // 316px
+        "103.5": "25.875rem", // 414px
+        "112.75": "28.1875rem", // 451px
+        "123.75": "30.9375rem", // 495px
         "125": "31.25rem", // 500px
         "160": "40rem", // 640px
       },
@@ -65,6 +68,10 @@ export default <Partial<Config>>{
       },
       maxHeight: {
         "125": "31.25rem", // 500px
+      },
+      screens: {
+        "3xl": "1600px",
+        "4xl": "1920px",
       },
     },
   },
