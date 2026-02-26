@@ -9,6 +9,9 @@ services:
       NODE_ENV: production
 
   backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
     expose:
       - "4500"
     environment:
