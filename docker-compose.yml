@@ -1,4 +1,17 @@
 services:
+  db:
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: icpp2026password
+      POSTGRES_USER: icpp2026
+      POSTGRES_DB: icpp2026_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./backend/db_patches/:/docker-entrypoint-initdb.d/
+      - ./pgdata:/var/lib/postgresql/data
+
   frontend:
     build:
       context: ./frontend
@@ -7,4 +20,6 @@ services:
       - backend
 
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev

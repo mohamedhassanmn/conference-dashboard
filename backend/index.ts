@@ -1,0 +1,40 @@
+import "reflect-metadata";
+import { container } from "tsyringe";
+import "./src/container";
+import { Tokens } from "./src/container/tokens";
+import { ServerConfigType } from "./src/config/server-config";
+const server = require("./src/server");
+
+require("dotenv").config();
+
+process.on("uncaughtException", (err) => {
+  console.log("Encountered uncaughtException", { err });
+});
+
+process.on("unhandledRejection", (err) => {
+  console.log("Encountered unhandledRejection", { err });
+});
+
+server(container).then(
+  (app: { listen: (arg0: string | number, arg1: () => void) => any }) => {
+    const config: ServerConfigType = container.resolve(Tokens.serverConfig);
+
+    const { port, keepAliveTimeout } = config;
+    if (!port) {
+      console.log("Port not found, Please check server-config.js");
+      return;
+    }
+
+    const finalApp = app.listen(port, () => {
+      finalApp.keepAliveTimeout = keepAliveTimeout;
+      finalApp.on("close", () => {
+        console.log("Server stopped successfully");
+      });
+      console.log(
+        `Server started successfully, running on port: ${
+          finalApp.address().port
+        }.`,
+      );
+    });
+  },
+);

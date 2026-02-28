@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import IcLink from '~/assets/icons/ic-link.png';
-import IcRedirectionArrow from '~/assets/icons/ic-redirection-arrow.png';
 import EventScheduleInfoCard from '~/components/atoms/event-schedule-info-card.vue';
 import LinksAndInfoCard from '~/components/atoms/links-and-info-card.vue';
 const config = useRuntimeConfig();
