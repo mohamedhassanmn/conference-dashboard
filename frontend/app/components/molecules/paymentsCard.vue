@@ -4,7 +4,6 @@ type Payment = {
   status: 'paid' | 'unpaid'
   date: string
   amount: string
-  link?: string
   receiptUrl?: string
 }
 
