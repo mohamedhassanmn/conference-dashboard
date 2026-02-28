@@ -3,7 +3,7 @@ import { container } from "tsyringe";
 import "./src/container";
 import { Tokens } from "./src/container/tokens";
 import { ServerConfigType } from "./src/config/server-config";
-const server = require("./src/server");
+import { server } from "./src/server";
 
 require("dotenv").config();
 
@@ -17,9 +17,9 @@ process.on("unhandledRejection", (err) => {
 
 server(container).then(
   (app: { listen: (arg0: string | number, arg1: () => void) => any }) => {
-    const config: ServerConfigType = container.resolve(Tokens.serverConfig);
+    const config: ServerConfigType = container.resolve(Tokens.ServerConfig);
 
-    const { port, keepAliveTimeout } = config;
+    const { port = process.env.PORT || 4500, keepAliveTimeout } = config;
     if (!port) {
       console.log("Port not found, Please check server-config.js");
       return;

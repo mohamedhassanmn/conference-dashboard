@@ -20,3 +20,7 @@ export const mapValue = <T>(type: symbol, value: T) => {
     useValue: value,
   });
 };
+
+export const mapInstance = <T>(type: symbol, instance: T) => {
+  container.registerInstance(type, instance);
+};

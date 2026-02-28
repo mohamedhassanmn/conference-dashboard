@@ -10,10 +10,20 @@ services:
     command: npm run dev
 
   backend:
+    env_file:
+      - ./backend/.env
     ports:
       - "4500:4500"
+      - "9229:9229"
     volumes:
       - ./backend:/app
     environment:
       NODE_ENV: development
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: icpp2026_db
+      DB_USER: icpp2026
+      DB_PASSWORD: icpp2026password
+    depends_on:
+      - db
     command: npm run dev

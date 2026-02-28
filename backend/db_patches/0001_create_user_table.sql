@@ -11,6 +11,10 @@ BEGIN
         -- Create table
         CREATE TABLE IF NOT EXISTS users (
             user_id SERIAL PRIMARY KEY,
+            first_name VARCHAR(100) NOT NULL,
+            last_name VARCHAR(100) NOT NULL,
+            affiliation VARCHAR(255),
+            region VARCHAR(100),
             email VARCHAR(255) NOT NULL,
             password_hash TEXT NOT NULL,
             is_verified BOOLEAN NOT NULL DEFAULT FALSE,
