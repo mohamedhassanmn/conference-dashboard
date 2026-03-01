@@ -20,7 +20,10 @@ export const server = async (
   app.use(
     cors({
       origin: (origin, callback) => {
-        const whitelist = ["http://localhost:4000"];
+        const whitelist = [
+          "http://localhost:4000",
+          "https://dashboard-icpp2026.iitd.ac.in",
+        ];
         if (!origin || whitelist.includes(origin)) {
           callback(null, true);
         } else {
