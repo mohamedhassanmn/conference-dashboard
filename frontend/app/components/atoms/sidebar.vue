@@ -11,6 +11,10 @@
                 active-class="bg-primary-600 hover:bg-primary-600">
                 {{ item.label }}
             </NuxtLink>
+            <button class="p-2 pl-9 text-sm font-medium text-warning-red hover:bg-red-100 text-left w-full mb-8"
+                @click="logout">
+                Sign Out
+            </button>
         </div>
     </div>
 </template>
@@ -18,5 +22,6 @@
 import { ROUTES } from '~/utils/routes.ts';
 const appConfig = useAppConfig();
 const navigation = appConfig.navigation;
+const { logout } = useAuth();
 </script>
 <style scoped></style>

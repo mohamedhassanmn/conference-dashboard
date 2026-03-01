@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import TextField from '~/components/atoms/text-field.vue';
 definePageMeta({
-    layout: 'no-default-fullscreen',
+    layout: false,
 });
 </script>
 

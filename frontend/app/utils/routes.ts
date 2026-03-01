@@ -7,4 +7,9 @@ export const ROUTES = {
   BOOK_SEATS: "/registration",
   PAYMENT_STATUS: "/payment-status",
   SETTINGS: "/settings",
+  LOGIN: "/login",
+  REGISTER: "/signup",
+  FORGOT_PASSWORD: "/forgot-password",
+  RESET_PASSWORD: "/reset-password",
+  VERIFY: "/verify",
 } as const;
