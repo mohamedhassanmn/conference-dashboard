@@ -7,13 +7,23 @@ services:
       - "4000:4000"
     environment:
       NODE_ENV: production
+      BACKEND_URL: http://backend:4500
 
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile.prod
+    env_file:
+      - ./backend/.env
     expose:
       - "4500"
     environment:
-      NODE_ENV: production
+      NODE_ENV: development
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: icpp2026_db
+      DB_USER: icpp2026
+      DB_PASSWORD: icpp2026password
+    depends_on:
+      - db
     command: npm run start

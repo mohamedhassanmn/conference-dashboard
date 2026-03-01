@@ -37,6 +37,7 @@ export default <Partial<Config>>{
         },
         "golden-yellow": "#EBEB7C",
         "dusky-red": "#FF8789",
+        "warning-red": "#EA2C2F",
         "grass-green": "#C7F9A0",
       },
       fontFamily: {

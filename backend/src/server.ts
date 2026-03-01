@@ -1,65 +1,62 @@
-import express, { Request, Response, NextFunction } from "express";
+import express, { Request, Response } from "express";
 import morgan from "morgan";
 import cors from "cors";
-import session from "express-session";
-import healthCheck from "./middlewares/healthCheck";
-import exceptionHandler from "./middlewares/exceptionHandler";
-import handleAuthentication from "./middlewares/authenticationHandler";
+import passport from "passport";
+import { DependencyContainer } from "tsyringe";
+import healthCheck from "./middlewares/health-check.middleware";
+import exceptionHandler from "./middlewares/exception-error-handler.middleware";
+import handleAuthentication from "./middlewares/authentication.middleware";
+import { IPassportConfig } from "./infrastructure/passport-config.interface";
+import { Tokens } from "./container/tokens";
+import authRouter from "./routes/auth.router";
 
-const server = (): Promise<express.Application> =>
-  new Promise((resolve) => {
-    const app = express();
-    app.use(express.urlencoded({ extended: true }));
-    app.use(express.json({ limit: "10mb", strict: false }));
-    app.use(morgan("dev"));
-    app.use(
-      cors({
-        origin: (
-          origin: string | undefined,
-          callback: (err: Error | null, allow?: boolean) => void,
-        ) => {
-          const whitelist = ["http://localhost:4000"];
-          console.log("REQUEST FROM ORIGIN: ", origin);
-          if (!origin || whitelist.indexOf(origin) !== -1) {
-            callback(null, true);
-          } else {
-            callback(new Error("Not allowed by CORS"), false);
-          }
-        },
-        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-        preflightContinue: false,
-        optionsSuccessStatus: 204,
-        credentials: true,
-        allowedHeaders: [
-          "content-type",
-          "credentials",
-          "authorization",
-          "accesstoken",
-        ],
-      }),
+export const server = async (
+  container: DependencyContainer,
+): Promise<express.Application> => {
+  const app = express();
+  app.use(express.json({ limit: "10mb", strict: false }));
+  app.use(express.urlencoded({ extended: true }));
+  app.use(morgan("dev"));
+  app.use(
+    cors({
+      origin: (origin, callback) => {
+        const whitelist = ["http://localhost:4000"];
+        if (!origin || whitelist.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error("Not allowed by CORS"), false);
+        }
+      },
+      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+      preflightContinue: false,
+      optionsSuccessStatus: 204,
+      credentials: true,
+      allowedHeaders: [
+        "content-type",
+        "credentials",
+        "authorization",
+        "accesstoken",
+      ],
+    }),
+  );
+  app.use(healthCheck());
+  try {
+    const passportConfig = container.resolve<IPassportConfig>(
+      Tokens.PassportConfig,
     );
-
-    app.use(
-      session({
-        secret: "youdontgettoseethisisTIFRsecret",
-        resave: false,
-        saveUninitialized: false,
-      }),
-    );
-
-    app.use(healthCheck());
-
-    app.use(exceptionHandler());
-
-    app.get("/", (_req: Request, res: Response) => {
-      res.status(200).send("Hello from ICPP2026 service!");
-    });
-
-    app.use(handleAuthentication());
-
-    // app.use("/service", router);
-
-    resolve(app);
+    passportConfig.init(passport); // registers strategies once
+  } catch (err) {
+    console.error("Failed to initialize Passport", err);
+    process.exit(1); // fail fast
+  }
+  app.use(passport.initialize());
+  app.use("/auth", authRouter());
+  app.get("/", (_req: Request, res: Response) => {
+    res.status(200).send("Hello from ICPP2026 service!");
   });
+  app.use(handleAuthentication()); // global auth middleware, applied after public routes
+  // app.use("/users", userRouter);
+  app.use(exceptionHandler());
 
-export default server;
+  return app;
+};
