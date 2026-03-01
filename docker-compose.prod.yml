@@ -18,17 +18,13 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile.prod
+      args:
+        - HTTP_PROXY=${HTTP_PROXY}
+        - HTTPS_PROXY=${HTTPS_PROXY}
     env_file:
-      - ./backend/.env
+      - ./backend/.env.production
     expose:
       - "4500"
-    environment:
-      NODE_ENV: development
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_NAME: icpp2026_db
-      DB_USER: icpp2026
-      DB_PASSWORD: icpp2026password
     depends_on:
       - db
     command: npm run start

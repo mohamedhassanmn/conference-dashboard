@@ -2,6 +2,13 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+ARG HTTP_PROXY
+ARG HTTPS_PROXY
+ENV HTTP_PROXY=$HTTP_PROXY
+ENV HTTPS_PROXY=$HTTPS_PROXY
+RUN npm config set proxy $HTTP_PROXY
+RUN npm config set https-proxy $HTTPS_PROXY
+
 COPY package*.json ./
 RUN npm ci
 

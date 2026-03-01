@@ -5,7 +5,12 @@ import { Tokens } from "./src/container/tokens";
 import { ServerConfigType } from "./src/config/server-config";
 import { server } from "./src/server";
 
-require("dotenv").config();
+require("dotenv").config({
+  path:
+    process.env.NODE_ENV === "production"
+      ? ".env.production"
+      : ".env.development",
+});
 
 process.on("uncaughtException", (err) => {
   console.log("Encountered uncaughtException", { err });
