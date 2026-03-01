@@ -5,7 +5,7 @@ import { container } from "tsyringe";
 import { Tokens } from "../container/tokens";
 import { IRegisterController } from "../controllers/register-controller.interface";
 import { ILoginController } from "../controllers/login-controller.interface";
-import { IPasswordRestController } from "../controllers/password-reset-controller.interface";
+import { IPasswordResetController } from "../controllers/password-reset-controller.interface";
 
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -18,7 +18,7 @@ export default function authRouter(): Router {
   const loginController = container.resolve<ILoginController>(
     Tokens.LoginController,
   );
-  const passwordResetController = container.resolve<IPasswordRestController>(
+  const passwordResetController = container.resolve<IPasswordResetController>(
     Tokens.PasswordResetController,
   );
 
