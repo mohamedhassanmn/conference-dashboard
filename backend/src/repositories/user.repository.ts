@@ -113,6 +113,13 @@ export default class UserRepository implements IUserRepository {
     await this.dataSource.deactivate(user_id);
   }
 
+  async activateUser(user_id: number): Promise<void> {
+    const user = await this.dataSource.findById(user_id);
+    if (!user) throw new Error(`User with id ${user_id} not found`);
+    if (user.is_active) throw new Error(`User is already active`);
+    await this.dataSource.activate(user_id);
+  }
+
   async changeRole(user_id: number, role: User["role"]): Promise<UserPublic> {
     const updated = await this.dataSource.update(user_id, { role });
     if (!updated) throw new Error(`User with id ${user_id} not found`);

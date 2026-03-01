@@ -1,17 +1,19 @@
-// container/index.ts
 import "reflect-metadata";
 import { container } from "tsyringe";
 import { Tokens } from "./tokens";
 import db from "../datasources/database";
 
-// Infrastructure
+// DataSources
 import UserDataSource from "../datasources/user.datasource";
+
+// Repositories
 import UserRepository from "../repositories/user.repository";
 
 // Services
 import PasswordService from "../services/password.service";
 import JwtService from "../services/jwt.service";
 import AuthService from "../services/auth.service";
+import EmailService from "../services/email.service";
 
 // Infrastructure
 import PassportConfig from "../infrastructure/passport.config";
@@ -20,6 +22,8 @@ import PassportConfig from "../infrastructure/passport.config";
 import LoginController from "../controllers/login.controller";
 import RegisterController from "../controllers/register.controller";
 import PasswordResetController from "../controllers/password-reset.controller";
+
+// Extra
 import { mapClass, mapInstance, mapValue } from "./utils";
 import { serverConfigs } from "../config/server-config";
 
@@ -39,6 +43,7 @@ mapValue(Tokens.JwtSecret, process.env.JWT_SECRET ?? "changeme");
 mapClass(Tokens.PasswordService, PasswordService);
 mapClass(Tokens.JwtService, JwtService);
 mapClass(Tokens.AuthService, AuthService);
+mapClass(Tokens.EmailService, EmailService);
 
 // 5. Infrastructure
 mapClass(Tokens.PassportConfig, PassportConfig);

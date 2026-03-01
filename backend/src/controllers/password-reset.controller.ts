@@ -1,24 +1,24 @@
 import Joi from "joi";
 import { injectable, inject } from "tsyringe";
 import { Request, Response } from "express";
-import { IPasswordRestController } from "./password-reset-controller.interface";
+import { IPasswordResetController } from "./password-reset-controller.interface";
 import { IUserRepository } from "../repositories/user-repository.interface";
 import { IPasswordService } from "../services/password-service.interface";
 import { IJwtService } from "../services/jwt-service.interface";
+import { IEmailService } from "../services/email-service.interface";
 import { Tokens } from "../container/tokens";
 
 @injectable()
-export default class PasswordResetController implements IPasswordRestController {
+export default class PasswordResetController implements IPasswordResetController {
   constructor(
     @inject(Tokens.UserRepository)
     private readonly userRepository: IUserRepository,
     @inject(Tokens.PasswordService)
     private readonly passwordService: IPasswordService,
     @inject(Tokens.JwtService) private readonly jwtService: IJwtService,
+    @inject(Tokens.EmailService) private readonly emailService: IEmailService,
   ) {}
 
-  // POST /auth/forgot-password
-  // Validates email exists and issues a short-lived reset token
   async handleRequest(req: Request, res: Response): Promise<void> {
     const { error, value } = Joi.object({
       email: Joi.string().email().required(),
@@ -29,9 +29,9 @@ export default class PasswordResetController implements IPasswordRestController 
       return;
     }
 
-    // Always respond with 200 even if email not found — prevents user enumeration
     const exists = await this.userRepository.emailExists(value.email);
     if (!exists) {
+      // always 200 to prevent user enumeration
       res.status(200).json({
         message: "If that email exists you will receive a reset link",
       });
@@ -46,16 +46,14 @@ export default class PasswordResetController implements IPasswordRestController 
       role: user.role,
     });
 
-    // TODO: send resetToken via email service
-    // For now return it directly (remove in production)
-    res.status(200).json({
-      message: "If that email exists you will receive a reset link",
-      resetToken, // ← remove this in production, send via email instead
-    });
+    // send email with reset link
+    await this.emailService.sendPasswordReset(user.email, resetToken);
+
+    res
+      .status(200)
+      .json({ message: "If that email exists you will receive a reset link" });
   }
 
-  // POST /auth/reset-password
-  // Validates reset token and updates password
   async handleResetPassword(req: Request, res: Response): Promise<void> {
     const { error, value } = Joi.object({
       token: Joi.string().required(),
@@ -73,7 +71,6 @@ export default class PasswordResetController implements IPasswordRestController 
       return;
     }
 
-    // Verify the reset token
     let payload;
     try {
       payload = this.jwtService.verify(value.token);
@@ -84,7 +81,6 @@ export default class PasswordResetController implements IPasswordRestController 
 
     const userId = parseInt(payload.sub, 10);
     const password_hash = await this.passwordService.hash(value.password);
-
     await this.userRepository.update(userId, { password_hash });
 
     res.status(200).json({ message: "Password reset successfully" });

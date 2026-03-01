@@ -25,6 +25,8 @@ export default class AuthService implements IUserAuthService {
     const user = await this.userRepository.getByEmailWithPassword(email);
     if (!user) throw new Error("Invalid email");
 
+    if (!user.is_active) throw new Error("Account has been disabled");
+
     const isMatch = await this.passwordService.compare(
       password,
       user.password_hash,

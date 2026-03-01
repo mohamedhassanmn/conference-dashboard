@@ -50,6 +50,7 @@ export default class PassportConfig implements IPassportConfig {
             const userId = parseInt(payload.sub, 10);
             const user = await this.userRepository.getById(userId);
             if (!user) return done(null, false);
+            if (!user.is_active) return done(null, false);
             return done(null, user);
           } catch (err) {
             return done(err, false);

@@ -34,6 +34,7 @@ export interface IUserDataSource {
   setVerified(user_id: number, trx?: Knex.Transaction): Promise<void>;
   setLastLogin(user_id: number, trx?: Knex.Transaction): Promise<void>;
   deactivate(user_id: number, trx?: Knex.Transaction): Promise<void>;
+  activate(user_id: number, trx?: Knex.Transaction): Promise<void>;
 
   // ─── Transaction Helper ───────────────────────────────────────────────────────
   withTransaction<T>(fn: (trx: Knex.Transaction) => Promise<T>): Promise<T>;

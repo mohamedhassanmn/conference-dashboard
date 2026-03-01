@@ -28,5 +28,6 @@ export interface IUserRepository {
   verifyUser(user_id: number): Promise<void>;
   recordLogin(user_id: number): Promise<void>;
   deactivateUser(user_id: number): Promise<void>;
+  activateUser(user_id: number): Promise<void>;
   changeRole(user_id: number, role: User["role"]): Promise<UserPublic>;
 }

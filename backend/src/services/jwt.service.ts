@@ -5,7 +5,7 @@ import { Tokens } from "../container/tokens";
 
 @injectable()
 export default class JwtService implements IJwtService {
-  private readonly expiresIn: SignOptions["expiresIn"] = "7d";
+  private readonly expiresIn: SignOptions["expiresIn"] = "1h";
 
   constructor(@inject(Tokens.JwtSecret) private readonly secret: Secret) {}
 

@@ -155,6 +155,13 @@ export default class UserDataSource implements IUserDataSource {
       .update({ is_active: false, updated_at: this.db.fn.now() });
   }
 
+  async activate(user_id: number, trx?: Knex.Transaction): Promise<void> {
+    const qb = trx ?? this.db;
+    await qb<User>("users")
+      .where({ user_id })
+      .update({ is_active: true, updated_at: this.db.fn.now() });
+  }
+
   // ─── Transaction Helper ───────────────────────────────────────────────────────
 
   async withTransaction<T>(

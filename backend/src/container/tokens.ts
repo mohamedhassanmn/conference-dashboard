@@ -11,4 +11,5 @@ export const Tokens = {
   LoginController: Symbol("LoginController"),
   RegisterController: Symbol("RegisterController"),
   PasswordResetController: Symbol("PasswordResetController"),
+  EmailService: Symbol("EmailService"),
 } as const;
