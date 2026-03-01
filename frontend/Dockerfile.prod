@@ -1,25 +1,30 @@
-FROM node:20-alpine AS build
+FROM node:20-alpine AS builder
 
 WORKDIR /app
+
+# ← set proxy for npm inside container
+ARG HTTP_PROXY
+ARG HTTPS_PROXY
+ENV HTTP_PROXY=$HTTP_PROXY
+ENV HTTPS_PROXY=$HTTPS_PROXY
+RUN npm config set proxy $HTTP_PROXY
+RUN npm config set https-proxy $HTTPS_PROXY
 
 COPY package*.json ./
 RUN npm install
 
 COPY . .
-RUN npm run build
 
+RUN npm run build
 
 FROM node:20-alpine
 
 WORKDIR /app
 
-ENV PORT=4000
-ENV HOST=0.0.0.0
-
-COPY --from=build /app/.output ./.output
 COPY package*.json ./
+RUN npm ci --omit=dev
 
-RUN npm install --production
+COPY --from=builder /app/.output ./.output
 
 EXPOSE 4000
 

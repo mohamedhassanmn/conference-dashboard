@@ -3,6 +3,11 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile.prod
+    env_file:
+      - ./frontend/.env
+    args:
+      - HTTP_PROXY=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
     ports:
       - "4000:4000"
     environment:
