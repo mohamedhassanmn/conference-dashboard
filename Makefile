@@ -1,5 +1,5 @@
 dev:
-	docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+	docker compose --env-file ./backend/.env.development -f docker-compose.yml -f docker-compose.dev.yml up -d
 
 prod:
 	docker-compose --env-file ./backend/.env.production -f docker-compose.yml -f docker-compose.prod.yml up -d

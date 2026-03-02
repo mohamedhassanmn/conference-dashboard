@@ -1,5 +1,4 @@
-import { injectable } from "tsyringe";
-import UserDataSource from "../datasources/user.datasource";
+import { inject, injectable } from "tsyringe";
 import {
   User,
   UserPublic,
@@ -10,10 +9,14 @@ import {
   PaginatedResult,
 } from "../models/user.model";
 import { IUserRepository } from "./user-repository.interface";
+import { IUserDataSource } from "../datasources/user-datasource.interface";
+import { Tokens } from "../container/tokens";
 
 @injectable()
 export default class UserRepository implements IUserRepository {
-  constructor(private readonly dataSource: UserDataSource) {}
+  constructor(
+    @inject(Tokens.UserDataSource) private readonly dataSource: IUserDataSource,
+  ) {}
 
   // ─── Helpers ─────────────────────────────────────────────────────────────────
 

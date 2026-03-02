@@ -8,7 +8,8 @@ import exceptionHandler from "./middlewares/exception-error-handler.middleware";
 import handleAuthentication from "./middlewares/authentication.middleware";
 import { IPassportConfig } from "./infrastructure/passport-config.interface";
 import { Tokens } from "./container/tokens";
-import authRouter from "./routes/auth.router";
+import authRouter from "./routes/auth.routes";
+import submissionRouter from "./routes/submission.routes";
 
 export const server = async (
   container: DependencyContainer,
@@ -59,7 +60,7 @@ export const server = async (
     res.status(200).send("Hello from ICPP2026 service!");
   });
   app.use(handleAuthentication()); // global auth middleware, applied after public routes
-  // app.use("/users", userRouter);
+  app.use("/submissions", submissionRouter());
   app.use(exceptionHandler());
 
   return app;

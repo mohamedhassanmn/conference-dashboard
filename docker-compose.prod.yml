@@ -1,4 +1,17 @@
 services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+      args:
+        - HTTP_PROXY=${HTTP_PROXY}
+        - HTTPS_PROXY=${HTTPS_PROXY}
+    env_file:
+      - ./backend/.env.production
+    expose:
+      - "4500"
+    command: npm run start
+
   frontend:
     build:
       context: ./frontend
@@ -13,18 +26,3 @@ services:
     environment:
       NODE_ENV: production
       BACKEND_URL: http://backend:4500
-
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile.prod
-      args:
-        - HTTP_PROXY=${HTTP_PROXY}
-        - HTTPS_PROXY=${HTTPS_PROXY}
-    env_file:
-      - ./backend/.env.production
-    expose:
-      - "4500"
-    depends_on:
-      - db
-    command: npm run start

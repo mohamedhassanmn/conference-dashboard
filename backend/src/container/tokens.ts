@@ -1,6 +1,7 @@
 export const Tokens = {
   Database: Symbol("Database"),
   UserDataSource: Symbol("UserDataSource"),
+  SubmissionDataSource: Symbol("SubmissionDataSource"),
   ServerConfig: Symbol("ServerConfig"),
   PassportConfig: Symbol("PassportConfig"),
   JwtSecret: Symbol("JwtSecret"),
@@ -8,8 +9,11 @@ export const Tokens = {
   JwtService: Symbol("JwtService"),
   UserRepository: Symbol("UserRepository"),
   PasswordService: Symbol("PasswordService"),
+  SubmissionService: Symbol("SubmissionService"),
+  EmailService: Symbol("EmailService"),
+  StorageService: Symbol("StorageService"),
   LoginController: Symbol("LoginController"),
   RegisterController: Symbol("RegisterController"),
   PasswordResetController: Symbol("PasswordResetController"),
-  EmailService: Symbol("EmailService"),
+  SubmissionController: Symbol("SubmissionController"),
 } as const;
