@@ -18,11 +18,11 @@ definePageMeta({
             <NuxtImg src="/images/css-cube-pattern.png" alt="CSS PATTERN" class="scale-150 h-full" />
         </div>
         <div class="h-[29.06%] flex justify-between space-x-3">
-            <EventScheduleInfoCard title="Abstract submission" status="Opening soon"
-                statusClass="bg-golden-yellow mt-3.5 mb-2.5" imgSrc="/images/img-submission-opening-soon.png"
+            <EventScheduleInfoCard title="Abstract submission" status="Submission open"
+                statusClass="bg-light-darkish-green mt-3.5 mb-2.5" imgSrc="/images/img-submission-open.png"
                 imgClass="h-37.5" />
             <EventScheduleInfoCard title="Abstract timeline" headerClass="mb-12"
-                imgSrc="/images/img-timeline-startsfrom.png" imgClass="h-39.25" />
+                imgSrc="/images/img-timeline-opensfrom.png" imgClass="h-34" />
             <EventScheduleInfoCard title="Registration timeline" status="Early registeration"
                 statusClass="bg-grass-green my-5" imgSrc="/images/img-registration-startsfrom.png" imgClass="h-34" />
         </div>

@@ -39,6 +39,7 @@ export default <Partial<Config>>{
         "dusky-red": "#FF8789",
         "warning-red": "#EA2C2F",
         "grass-green": "#C7F9A0",
+        "light-darkish-green": "#AEE4E1",
       },
       fontFamily: {
         nunito: ['"Nunito Sans"', "system-ui", "sans-serif"],
