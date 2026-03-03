@@ -16,7 +16,7 @@ const emit = defineEmits(['change-step'])
 </script>
 
 <template>
-    <div class="flex w-fit max-w-[80%] mx-auto justify-between items-center bg-primary-100 rounded-2xl">
+    <div class="flex w-fit 3xl:max-w-[80%] mx-auto justify-between items-center bg-primary-100 rounded-2xl">
         <StepperItem v-for="(step, index) in steps" :key="step.stepCount" :stepCount="step.stepCount"
             :stepName="step.stepName" :activeState="step.stepCount === activeStep"
             :completed="step.stepCount < activeStep" :hideDivider="steps.length - 1 !== index"

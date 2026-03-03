@@ -11,10 +11,10 @@ const emit = defineEmits(['step-click'])
 </script>
 
 <template>
-    <div class="flex space-x-4 items-center cursor-pointer font-semibold p-4" @click="emit('step-click')">
+    <div class="flex space-x-4 items-center cursor-pointer font-semibold text-sm 3xl:text-base p-4"
+        @click="emit('step-click')">
         <div class="w-8 h-8 rounded-full flex items-center justify-center text-primary-100"
             :class="completed ? 'bg-primary-700' : activeState ? 'bg-neutral-400' : 'bg-neutral-200'">
-            <!-- checkmark when completed -->
             <svg v-if="completed" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20"
                 fill="currentColor">
                 <path fill-rule="evenodd"
@@ -23,9 +23,10 @@ const emit = defineEmits(['step-click'])
             </svg>
             <span v-else>{{ stepCount }}</span>
         </div>
-        <div class="font-bold" :class="activeState || completed ? 'text-neutral-400' : 'text-neutral-200'">
+        <div class="font-bold whitespace-nowrap"
+            :class="activeState || completed ? 'text-neutral-400' : 'text-neutral-200'">
             {{ stepName }}
         </div>
     </div>
-    <hr v-if="hideDivider" class="w-16 border-neutral-200" />
+    <hr v-if="hideDivider" class="w-10 3xl:w-16 border-neutral-200" />
 </template>

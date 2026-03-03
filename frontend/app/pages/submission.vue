@@ -36,13 +36,11 @@ const goToStep = (step: number) => {
 <template>
     <div class="w-full h-full flex flex-col justify-center items-center">
         <Stepper :steps="steps" :activeStep="activeStep" @change-step="goToStep" />
-
-        <div v-if="store.error" class="text-red-500 text-sm mt-2">
-            {{ store.error }}
-        </div>
-
         <div class="min-w-160 w-1/3 flex-1 min-h-0 mx-auto mt-10">
             <div class="h-full flex flex-col justify-center items-center">
+                <div v-if="store.error" class="text-red-500 text-base my-6 font-semibold">
+                    {{ store.error }}
+                </div>
                 <template v-if="activeStep === 1">
                     <AuthorInfoForm @next="activeStep = 2" />
                 </template>
