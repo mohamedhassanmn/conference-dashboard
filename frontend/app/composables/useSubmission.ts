@@ -61,7 +61,7 @@ export const useSubmission = () => {
   const saveAuthors = async () => {
     const err = validateAuthors();
     if (err) {
-      store.setError(err);
+      store.setError(getErrorMessage(err));
       return;
     }
     store.isLoading = true;
@@ -95,7 +95,7 @@ export const useSubmission = () => {
   const saveTitleAndAbstract = async (title: string, abstractFile?: File) => {
     const err = validateTitle(title);
     if (err) {
-      store.setError(err);
+      store.setError(getErrorMessage(err));
       return;
     }
     if (!abstractFile && !store.abstract_file_key) {
@@ -129,7 +129,7 @@ export const useSubmission = () => {
   const saveKeywords = async (keywords: string[]) => {
     const err = validateKeywords(keywords);
     if (err) {
-      store.setError(err);
+      store.setError(getErrorMessage(err));
       return;
     }
     store.isLoading = true;
@@ -209,5 +209,6 @@ export const useSubmission = () => {
     saveKeywords,
     saveSupplementary,
     submitSubmission,
+    getErrorMessage,
   };
 };
