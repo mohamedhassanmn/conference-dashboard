@@ -4,7 +4,7 @@ import { useSubmissionStore } from '~/stores/submissions.store'
 
 const emit = defineEmits(['next'])
 const store = useSubmissionStore()
-const { saveKeywords } = useSubmission()
+const { saveKeywords, getErrorMessage } = useSubmission()
 
 const keywords = ref<string[]>([...store.keywords])
 
@@ -16,7 +16,7 @@ const saveAndContinue = async () => {
         await saveKeywords(keywords.value)
         if (!store.error) emit('next')
     } catch (err: any) {
-        store.setError(err.message)
+        store.setError(getErrorMessage(err))
     }
 }
 </script>

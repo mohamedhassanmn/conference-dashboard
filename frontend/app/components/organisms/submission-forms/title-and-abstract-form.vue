@@ -5,7 +5,7 @@ import { useSubmissionStore } from '~/stores/submissions.store'
 
 const emit = defineEmits(['next'])
 const store = useSubmissionStore()
-const { saveTitleAndAbstract } = useSubmission()
+const { saveTitleAndAbstract, getErrorMessage } = useSubmission()
 
 const title = ref(store.title)
 const abstractFile = ref<File | null>(null)
@@ -17,7 +17,7 @@ const saveAndContinue = async () => {
         await saveTitleAndAbstract(title.value, abstractFile.value ?? undefined)
         if (!store.error) emit('next')
     } catch (err: any) {
-        store.setError(err.message)
+        store.setError(getErrorMessage(err))
     }
 }
 </script>

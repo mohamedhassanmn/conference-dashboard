@@ -2,6 +2,7 @@
 import IcFileUpload from '~/assets/icons/ic-file-upload.png'
 import IcFilePdf from '~/assets/icons/ic-file-pdf.png'
 import IcClose from '~/assets/icons/ic-close.png'
+import { useSubmissionStore } from '~/stores/submissions.store'
 
 defineProps({
     label: { type: String, default: 'Label' },
@@ -9,6 +10,7 @@ defineProps({
     existingFileName: { type: String, default: '' },
 })
 
+const store = useSubmissionStore()
 const emit = defineEmits(['file-selected'])
 const fileInput = ref<HTMLInputElement | null>(null)
 const fileName = ref('')
@@ -19,6 +21,16 @@ const onFileChange = (event: Event) => {
     const target = event.target as HTMLInputElement | null
     const file = target?.files?.[0]
     if (!file) return
+
+    if (file.type !== 'application/pdf') {
+        store.setError('Only PDF files are accepted')
+        fileName.value = ''
+        if (fileInput.value) fileInput.value.value = ''
+        emit('file-selected', null)
+        return
+    }
+
+    store.setError(null)
     fileName.value = file.name
     emit('file-selected', file)
 }
@@ -34,7 +46,7 @@ const clearFile = () => {
     <div :class="`w-full ${customClass}`">
         <label class="block font-medium text-neutral-500">{{ label }}</label>
         <div class="mt-1">
-            <input ref="fileInput" type="file" class="hidden" @change="onFileChange" accept=".pdf,.doc,.docx" />
+            <input ref="fileInput" type="file" class="hidden" @change="onFileChange" accept=".pdf" />
             <button type="button" class="w-full px-4 py-11 rounded-xl border border-dashed border-neutral-400"
                 @click="triggerFileInput">
                 <img :src="IcFileUpload" alt="File Upload" class="inline-block mr-2 cursor-pointer w-16 h-fit" />
