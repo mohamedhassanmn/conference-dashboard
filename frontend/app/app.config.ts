@@ -4,7 +4,7 @@ export default defineAppConfig({
   navigation: {
     main: [
       { label: "Summary", to: ROUTES.HOME },
-      // { label: "Submission", to: ROUTES.SUBMISSION },
+      { label: "Submission", to: ROUTES.SUBMISSION },
       // { label: "Reviews", to: ROUTES.REVIEWS },
       // { label: "Notifications", to: ROUTES.NOTIFICATIONS },
       // { label: "Communications", to: ROUTES.COMMUNICATIONS },
